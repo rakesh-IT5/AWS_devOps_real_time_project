@@ -1,0 +1,34 @@
+Reduces image size significantly
+FROM node:22-alpine AS builder
+...
+FROM node:22-alpine AS runtime
+
+Use Specific Versions
+ FROM node:22.16.0-alpine
+  
+Run as Non-Root User
+ RUN adduser -S appuser
+USER appuser
+
+Use .dockerignore
+node_modules
+.git
+.github
+.env
+coverage
+dist
+.next/cache
+*.log
+
+Prevents unnecessary files from entering the image.
+
+Health Checks
+HEALTHCHECK CMD curl -f http://localhost:3000/health || exit 1
+
+Security Scanning
+ trivy scanning
+ Vulnerability scanning
+
+
+ Minimal base image (alpine, distroless)
+
